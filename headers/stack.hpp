@@ -16,6 +16,8 @@ public:
     size_t GetSize() const;
     bool IsEmpty() const;
 
+    bool IsAlarm() const;
+
 private:
     size_t curr_size;
     size_t max_size;
@@ -63,32 +65,54 @@ Stack<T>::Stack(const Stack& stack) {
 
 template <class T>
 T Stack<T>::Top() const {
+    assert(!IsAlarm());
     assert(curr_size);
+
     return buffer[curr_size - 1];
 }
 
 template <class T>
 void Stack<T>::Pop() {
+    assert(!IsAlarm());
+
     assert(curr_size);
     ~buffer[curr_size - 1];
 
     --curr_size;
+
+    defender.Update(curr_size);
 }
 
 template <class T>
 void Stack<T>::Push(T data) {
+    assert(!IsAlarm());
+
     assert(curr_size != max_size);
     buffer[curr_size] = data;
 
     ++curr_size;
+    
+    defender.Update(curr_size);
 }
 
 template <class T>
 size_t Stack<T>::GetSize() const {
+    assert(!IsAlarm());
+
     return curr_size;
 }
 
 template <class T>
 bool Stack<T>::IsEmpty() const {
+    assert(!IsAlarm());
+
     return !curr_size;
+}
+
+template <class T>
+bool Stack<T>::IsAlarm() const {
+    StackDefender<T> temp_defender = StackDefender<T>(buffer, max_size);
+    temp_defender.Update(curr_size);
+
+    return defender != temp_defender;
 }
