@@ -7,7 +7,7 @@ public:
     ~Canary();
     Canary(const Canary& canary);
 
-    bool IsAlarm();
+    bool IsAlarm() const;
 
 private:
     bool* left_wing;
@@ -42,7 +42,7 @@ Canary::Canary(const Canary& canary) {
     assert(right_wing);
 }
 
-bool Canary::IsAlarm() {
+bool Canary::IsAlarm() const {
     assert(left_wing);
     assert(right_wing);
 
