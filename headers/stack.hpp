@@ -1,6 +1,13 @@
+/*!
+    @file
+    @brief File containing Stack declaration and definition
+*/
 #include <cstdlib>
 #include "stack_defender.hpp"
 
+/*!
+    @brief Stack class
+*/
 template <class T>
 class Stack {
 public:
@@ -16,6 +23,10 @@ public:
     size_t GetSize() const;
     bool IsEmpty() const;
 
+/*!
+    @brief Checks if there are some errors
+    @param[out] is_alarm True if errors are found
+*/
     bool IsAlarm() const;
 
 private:

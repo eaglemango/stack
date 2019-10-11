@@ -1,12 +1,32 @@
+/*!
+    @file
+    @brief Header file with Canary declaration and definition
+*/
+
 #include <assert.h>
+
+/*!
+    @brief Class that defends memory chunks from being corrupted from left or right
+*/
 
 class Canary {
 public:
     Canary();
+
+/*!
+    @brief Canary constructor
+    @param[in] chunk_start Pointer to beginning of memory chunk
+    @param[in] chunk_end Pointer to end of memory chunk
+*/
     Canary(void* chunk_start, void* chunk_end);
+    
     ~Canary();
     Canary(const Canary& canary);
 
+/*!
+    @brief Checks if there are some errors
+    @param[out] is_alarm True if errors are found
+*/
     bool IsAlarm() const;
 
 private:

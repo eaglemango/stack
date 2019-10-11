@@ -1,12 +1,25 @@
+/*!
+    @file
+    @brief File containing StackDefender declaration and definition
+*/
 #include "canary.hpp"
 #include "hash.hpp"
 #include <stdlib.h>
 #include <tuple>
 
+/*!
+    @brief Controls stack to be always correct
+*/
 template <class T>
 class StackDefender {
 public:
     StackDefender();
+
+/*!
+    @brief Defender constructor
+    @param[in] buffer Start of Stack buffer (including Canary's byte)
+    @param[in] max_size Stack's max size
+*/
     StackDefender(void* buffer, size_t max_size);
     ~StackDefender();
     StackDefender(const StackDefender& defender);
@@ -15,8 +28,16 @@ public:
     size_t GetMaxSize() const;
     int GetContentHash() const;
 
+/*!
+    @brief Updates information about Stack after every non-const operation
+    @param[in] new_curr_size Stack's size after operation
+*/
     void Update(size_t new_curr_size);
 
+/*!
+    @brief Checks if there are some errors
+    @param[out] is_alarm True if errors are found
+*/
     bool IsAlarm() const;
 
 private:
